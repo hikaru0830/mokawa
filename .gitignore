@@ -1,0 +1,42 @@
+## [ Visual Studio 暫存與快取 ]
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+## [ 編譯產出 - 絕對禁止進版控 ]
+bin/
+obj/
+# 針對你看到的 net10.0 等特定路徑
+**/bin/
+**/obj/
+
+## [ 靜態資源與壓縮檔 ]
+# .gz通常是 build 產生的壓縮檔
+*.gz
+# 如果 lib 下的套件是透過 LibMan 或 NPM 管理，建議也排除
+Mkw/wwwroot/lib/
+
+## [ 專屬 .NET 設定 ]
+*.swp
+*.bak
+*.tmp
+*.log
+.DS_Store
+
+## [ NuGet 套件 ]
+# 只要有專案檔，套件可以隨時還原，不需要進 Git
+node_modules/
+/packages/
+*.nuget.props
+*.nuget.targets
+
+## [ 環境變數與機密資訊 ]
+.env
+appsettings.Development.json
+# 注意：若團隊需要共用開發設定，可保留上面這行，
+# 但嚴禁將密碼、API Key 寫在裡面。
+
+# 針對 Vite 與 React 的產出
+Mokawa/wwwroot/dist/
