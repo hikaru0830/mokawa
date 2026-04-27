@@ -39,4 +39,28 @@ appsettings.Development.json
 # 但嚴禁將密碼、API Key 寫在裡面。
 
 # 針對 Vite 與 React 的產出
-Mokawa/wwwroot/dist/
+# ==============================
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
