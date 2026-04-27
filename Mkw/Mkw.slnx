@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="../Mkw.Application/Mkw.Application.csproj" />
-  <Project Path="../Mkw.Domain/Mkw.Domain.csproj" />
-  <Project Path="../Mkw.Infrastructure/Mkw.Infrastructure.csproj" />
-  <Project Path="Mkw.csproj" />
-</Solution>
