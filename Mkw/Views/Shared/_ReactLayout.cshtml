@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "_ReactLayout";
+    var entry = Vite.GetManifestEntry("index.html");
+    var viteBaseUrl = Config["Vite:ServerUrl"] ?? "http://localhost:5173";
+}
+
+@using Microsoft.Extensions.Hosting
+@inject IWebHostEnvironment Env
+@inject IConfiguration Config
+@inject Mkw.Services.ViteManifestService Vite
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mkw</title>
+    <script type="importmap"></script>
+    @await RenderSectionAsync("Styles", required: false)
+    @if (!Env.IsDevelopment() && entry.Css != null)
+    {
+        foreach (var cssFile in entry.Css)
+        {
+            <link rel="stylesheet" href="~/dist/@cssFile" asp-append-version="true" />
+        }
+    }
+</head>
+<body>
+
+    <div id="root"></div>
+
+    @RenderBody()
+
+    @if (Env.IsDevelopment())
+    {
+        <script type="module" src="@(viteBaseUrl)/@@vite/client"></script>
+        <script type="module">
+            import RefreshRuntime from '@(viteBaseUrl)/@@react-refresh'
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => { }
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+        <script type="module" src="@(viteBaseUrl)/src/main.jsx"></script>
+    }
+    else if (entry != null)
+    {
+        <script type="module" src="~/dist/@entry.File" asp-append-version="true"></script>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

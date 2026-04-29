@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Frontend\**" />
+    <Content Remove="Frontend\**" />
+    <EmbeddedResource Remove="Frontend\**" />
+    <None Remove="Frontend\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mkw.Application\Mkw.Application.csproj" />
     <ProjectReference Include="..\Mkw.Domain\Mkw.Domain.csproj" />
     <ProjectReference Include="..\Mkw.Infrastructure\Mkw.Infrastructure.csproj" />
@@ -18,10 +25,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Frontend\" />
+    <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
 </Project>
