@@ -1,4 +1,5 @@
-﻿using Mkw.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Mkw.Domain.Entities;
 using Mkw.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,114 +10,153 @@ namespace Mkw.Infrastructure.Data
 {
     public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        public TEntity Create(TEntity entity)
+        protected readonly MkwContext _dbContext;
+        protected readonly DbSet<TEntity> _dbSet;
+
+        public EfRepository(MkwContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+            _dbSet = dbContext.Set<TEntity>();
         }
 
-        public Task<TEntity> CreateAsync(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(entity);
+            _dbContext.SaveChanges();
+            return entity;
         }
 
-        public IEnumerable<TEntity> CreateRange(IEnumerable<TEntity> entities)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
-        public Task<IEnumerable<TEntity>> CreateRangeAsync(IEnumerable<TEntity> entities)
+        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _dbSet.AddRange(entities);
+            _dbContext.SaveChanges();
+            return entities;
+        }
+
+        public async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+            await _dbContext.SaveChangesAsync();
+            return entities;
+        }
+
+        public bool Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.Any(predicate);
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
         }
 
         public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
-        public Task DeleteAsync(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _dbSet.RemoveRange(entities);
+            _dbContext.SaveChanges();
         }
 
-        public Task DeleteRangeAsync(IEnumerable<TEntity> entities)
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Exists(Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            _dbSet.RemoveRange(entities);
+            await _dbContext.SaveChangesAsync();
         }
 
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dbSet.FirstOrDefault(predicate)!;
         }
 
-        public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (await _dbSet.FirstOrDefaultAsync(predicate))!;
         }
 
         public TEntity GetById<TId>(TId id) where TId : struct
         {
-            throw new NotImplementedException();
+            return _dbSet.Find(new object[] { id })!;
         }
 
-        public Task<TEntity> GetByIdAsync<TId>(TId id) where TId : struct
+        public async Task<TEntity> GetByIdAsync<TId>(TId id) where TId : struct
         {
-            throw new NotImplementedException();
+            return (await _dbSet.FindAsync(new object[] { id }))!;
         }
 
         public List<TEntity> List(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dbSet.Where(predicate).ToList();
+        }
+
+        public List<TEntity> List()
+        {
+            return _dbSet.ToList();
         }
 
         public Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dbSet.Where(predicate).ToListAsync();
+        }
+
+        public Task<List<TEntity>> ListAsync()
+        {
+            return _dbSet.ToListAsync();
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dbSet.SingleOrDefault(predicate)!;
         }
 
-        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (await _dbSet.SingleOrDefaultAsync(predicate))!;
         }
 
         public TEntity Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(entity);
+            _dbContext.SaveChanges();
+            return entity;
         }
 
-        public Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         public IEnumerable<TEntity> UpdateRange(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _dbSet.UpdateRange(entities);
+            _dbContext.SaveChanges();
+            return entities;
         }
 
-        public Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities)
+        public async Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _dbSet.UpdateRange(entities);
+            await _dbContext.SaveChangesAsync();
+            return entities;
         }
     }
 }

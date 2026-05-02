@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<ViteManifestService>();
+builder.Services.AddScoped<Mkw.Domain.Interfaces.IUnitOfWork, Mkw.Infrastructure.Data.UnitOfWork>();
 
 var app = builder.Build();
 
