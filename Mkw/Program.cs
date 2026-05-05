@@ -1,12 +1,19 @@
+using Dapper.FastCrud;
+using Mkw.Infrastructure;
 using Mkw.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddInfrastructureService(builder.Configuration);
 
 builder.Services.AddSingleton<ViteManifestService>();
 builder.Services.AddScoped<Mkw.Domain.Interfaces.IUnitOfWork, Mkw.Infrastructure.Data.UnitOfWork>();
+builder.Services.AddScoped<Mkw.Application.ViewModelServices.Home>();
+
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+OrmConfiguration.DefaultDialect = SqlDialect.PostgreSql;
 
 var app = builder.Build();
 

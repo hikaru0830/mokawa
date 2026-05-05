@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Mkw.Application.ViewModelServices;
 using Mkw.Models;
 using System.Diagnostics;
 
@@ -6,8 +7,14 @@ namespace Mkw.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private Home _home;
+        public HomeController(Home home)
         {
+            _home = home;
+        }
+        public async Task<IActionResult> Index()
+        {
+            await _home.Test();
             return View();
         }
 

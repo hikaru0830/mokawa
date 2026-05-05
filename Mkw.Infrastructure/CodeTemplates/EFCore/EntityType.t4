@@ -28,7 +28,9 @@
     {
         "System",
         "System.Collections.Generic",
-        "Mkw.Domain.Common"
+        "Mkw.Domain.Entities",
+        "System.ComponentModel.DataAnnotations.Schema",
+        "System.ComponentModel.DataAnnotations",
     };
 
     if (Options.UseDataAnnotations)
@@ -65,6 +67,7 @@ namespace <#= NamespaceHint #>;
         }
     }
 #>
+[Table("<#= EntityType.GetTableName() #>")]
 public partial class <#= EntityType.Name #> : BaseEntity
 {
 <#
@@ -102,6 +105,10 @@ public partial class <#= EntityType.Name #> : BaseEntity
         var needsNullable = Options.UseNullableReferenceTypes && property.IsNullable && !property.ClrType.IsValueType;
         var needsInitializer = Options.UseNullableReferenceTypes && !property.IsNullable && !property.ClrType.IsValueType;
 #>
+<# if (property.IsPrimaryKey()) { #>
+    [Key]
+<# } #>
+    [Column("<#= property.GetColumnBaseName() #>")]
     public <#= code.Reference(property.ClrType) #><#= needsNullable ? "?" : "" #> <#= property.Name #> { get; set; }<#= needsInitializer ? " = null!;" : "" #>
 <#
         firstProperty = false;
