@@ -14,7 +14,7 @@ namespace Mkw.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            await _home.Test();
+            //await _home.Test();
             return View();
         }
 
