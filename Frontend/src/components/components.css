@@ -1,0 +1,32 @@
+@import "../basic.css";
+
+/* Navbar */
+/* nav {
+    display: flex;
+    justify-content: space-between;
+
+    .category-container {
+        flex-grow: 1;
+        margin-left: 10px;
+    }
+
+    ul {
+        padding: 0;
+        display: flex;
+        justify-content: start;
+        list-style-type: none;
+    }
+
+    li {
+        margin-left: 30px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+} */
+
+
+/* Navbar_Guest */
+
+
