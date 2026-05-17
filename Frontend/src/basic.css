@@ -83,6 +83,9 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
+  /* swiper 參數 */
+  --swiper-pagination-color: oklch(1 0 0 / 50%);
+  --swiper-navigation-color: oklch(1 0 0 / 50%);
 }
 
 .dark {
