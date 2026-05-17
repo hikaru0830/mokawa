@@ -3,7 +3,7 @@ import Navbar from './Navbar_Guest'
 function App() {
     return (
         <>
-        <header>
+        <header className="sticky top-0 z-99 bg-white">
             <Navbar />
         </header>
         </>
